@@ -17,3 +17,17 @@ Running unit tests:
 Running integration tests:
 
     make integration-test
+
+
+## Server Model
+
+```json
+{
+  "id": "uuid",
+  "customer_id": "uuid",
+  "hostname": "string",
+  "os": "linux|windows",
+  "ram": "int",
+  "cpu": "intel|amd"
+}
+```
