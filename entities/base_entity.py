@@ -15,10 +15,10 @@ Base = declarative_base()
 
 
 class BaseEntity:
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    last_updated_by = Column(String)
+    _id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    _created_at = Column(DateTime)
+    _updated_at = Column(DateTime)
+    _last_updated_by = Column(String)
 
     def __init__(self, created_by):
         self.created_at = datetime.now()

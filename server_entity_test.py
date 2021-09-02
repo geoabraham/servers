@@ -24,7 +24,7 @@ if len(servers) == 0:
     # reload servers
     servers = session.query(Server).all()
 
-# show existing exams
-print("### Exams:")
+# show existing servers
+print("### Servers:")
 for server in servers:
     print(f"({server.id}) {server.hostname} - {server.os}")
