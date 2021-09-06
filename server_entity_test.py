@@ -1,6 +1,6 @@
 # TODO: Move this file to tests folder.
 from entities.base_entity import Session, engine, Base
-from entities.server import Server
+from entities.server import Server, ServerSchema
 import uuid
 import os
 

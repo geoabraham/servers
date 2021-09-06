@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, Integer
 from .base_entity import BaseEntity, Base
 from sqlalchemy.dialects.postgresql import UUID
+from marshmallow import Schema, fields
 import uuid
 
 
@@ -19,3 +20,15 @@ class Server(BaseEntity, Base):
         self.os = os
         self.ram = ram
         self.cpu = cpu
+
+
+class ServerSchema(Schema):
+    id = fields.UUID()
+    customer_id = fields.UUID()
+    hostname = fields.Str()
+    os = fields.Str()
+    ram = fields.Number()
+    cpu = fields.Str()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+    last_updated_by = fields.Str()
