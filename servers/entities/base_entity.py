@@ -14,13 +14,9 @@ Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
 
-class BaseEntity:
+class BaseEntity(Base):
+    __abstract__ = True
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, onupdate=datetime.now)
     last_updated_by = Column(String)
-
-    def __init__(self, created_by):
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        self.last_updated_by = created_by

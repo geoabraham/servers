@@ -1,8 +1,10 @@
-from sqlalchemy import Column, String, Integer
-from .base_entity import BaseEntity, Base
-from sqlalchemy.dialects.postgresql import UUID
-from marshmallow import Schema, fields
 import uuid
+
+from marshmallow import Schema, fields
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.dialects.postgresql import UUID
+
+from servers.entities.base_entity import Base, BaseEntity
 
 
 class Server(BaseEntity, Base):
@@ -13,8 +15,8 @@ class Server(BaseEntity, Base):
     ram = Column(Integer)
     cpu = Column(String)  # TODO: To Enum
 
-    def __init__(self, customer_id, hostname, os, ram, cpu, created_by):
-        BaseEntity.__init__(self, created_by)
+    def __init__(self, customer_id, hostname, os, ram, cpu):
+        super().__init__()
         self.customer_id = customer_id
         self.hostname = hostname
         self.os = os
@@ -23,12 +25,11 @@ class Server(BaseEntity, Base):
 
 
 class ServerSchema(Schema):
-    id = fields.UUID()
-    customer_id = fields.UUID()
-    hostname = fields.Str()
-    os = fields.Str()
-    ram = fields.Number()
-    cpu = fields.Str()
+    id = fields.UUID(required=True)
+    customer_id = fields.UUID(required=True)
+    hostname = fields.Str(required=True)
+    os = fields.Str(required=True)
+    ram = fields.Number(required=True)
+    cpu = fields.Str(required=True)
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
-    last_updated_by = fields.Str()

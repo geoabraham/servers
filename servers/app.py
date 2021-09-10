@@ -1,7 +1,8 @@
 # coding=utf-8
+from http import HTTPStatus
 from flask import Flask, jsonify, request
-from entities.base_entity import Session, engine, Base
-from entities.server import Server, ServerSchema
+from servers.entities.base_entity import Session, engine, Base
+from servers.entities.server import Server, ServerSchema
 
 # creating the Flask application
 app = Flask(__name__)
@@ -31,7 +32,8 @@ def add_server():
     posted_server = ServerSchema(
         only=("customer_id", "hostname", "os", "ram", "cpu")
     ).load(request.get_json())
-    server = Server(**posted_server, created_by="HTTP post request")
+    
+    server = Server(**posted_server)
 
     # persist server
     session = Session()
@@ -43,3 +45,8 @@ def add_server():
     session.close()
 
     return jsonify(new_server), 201
+
+
+@app.route("/health")
+def check_health():
+    return (str(HTTPStatus.OK), HTTPStatus.OK)

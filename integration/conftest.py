@@ -15,7 +15,7 @@ def pytest_sessionstart(session):
 
 def _is_service_up():
     try:
-        response = requests.get(f"http://localhost:8000/health", timeout=1)
+        response = requests.get(f"http://localhost:5000/health", timeout=1)
         response.raise_for_status()
     except Exception as err:  # pylint: disable=broad-except
         _logger.warning(err)
