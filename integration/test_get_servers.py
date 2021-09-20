@@ -11,7 +11,7 @@ def test_get_servers_success():
     query_params = {"customer_id": customer_id}
 
     # When
-    response = requests.get("localhost:8000/v1/servers", params=query_params)
+    response = requests.get("http://localhost:5000/servers", params=query_params)
 
     # Then
     assert response.status_code == HTTPStatus.OK

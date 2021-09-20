@@ -83,3 +83,7 @@ integration-pytest:
 
 service-run:
 	@echo "Starting server"
+	@( \
+		. $(VENV)/bin/activate; \
+		FLASK_DEBUG=1 FLASK_APP=./servers/app.py flask run -h 0.0.0.0; \
+	)

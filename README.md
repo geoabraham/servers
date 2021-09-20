@@ -1,8 +1,7 @@
-Servers Service
----
+# Servers Service
+
 This repository contains a basic TDD example for building a
 python service.
-
 
 ## Setup
 
@@ -18,16 +17,15 @@ Running integration tests:
 
     make integration-test
 
-
 ## Server Model
 
 ```json
 {
-  "id": "uuid",
-  "customer_id": "uuid",
-  "hostname": "string",
-  "os": "linux|windows",
-  "ram": "int",
-  "cpu": "intel|amd"
+    "id": "uuid",
+    "customer_id": "uuid",
+    "hostname": "string",
+    "os": "linux|windows",
+    "ram": "int",
+    "cpu": "intel|amd"
 }
 ```
