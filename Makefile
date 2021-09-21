@@ -72,7 +72,7 @@ coverage-pytest:
 			--no-cov-on-fail; \
 	)
 
-integration-test: clean-test integration-pytest
+integration-test: clean-test local-up integration-pytest local-down
 
 integration-pytest:
 	@echo "Running component tests..."
@@ -81,9 +81,31 @@ integration-pytest:
 		pytest integration --log-cli-level=WARN; \
 	)
 
-service-run:
-	@echo "Starting server"
+postgres-up:
+	@echo "Starting postgres container..."
+	@docker-compose up -d postgres
+	@sleep 2 # Wait for DB to start
+
+postgres-down:
+	@echo "Stopping postgres container..."
+	@docker-compose kill postgres
+
+service-run: postgres-up
+	@echo "Starting server..."
 	@( \
 		. $(VENV)/bin/activate; \
 		FLASK_DEBUG=1 FLASK_APP=./servers/app.py flask run -h 0.0.0.0; \
 	)
+
+service-up:
+	@echo "Starting server container..."
+	@docker-compose up -d service
+
+service-down:
+	@echo "Stopping server container..."
+	@docker-compose kill service
+
+
+local-up: postgres-up service-up
+
+local-down: service-down postgres-down

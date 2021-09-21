@@ -1,0 +1,31 @@
+version: "3.4"
+
+services:
+  service:
+    container_name: servers-service
+    hostname: servers-service
+    build:
+      context: .
+    environment:
+      DB_HOST: "local-servers-postgres"
+      DB_PORT: "5432"
+      DB_USERNAME: "username"
+      DB_PASSWORD: "password"
+      DB_NAME: "local-servers"
+    volumes:
+      - ./servers:/code/servers:ro,Z
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12.6-alpine
+    container_name: local-servers-postgres
+    hostname: local-servers-postgres
+    environment:
+      - POSTGRES_DB=local-servers
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"

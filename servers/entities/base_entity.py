@@ -1,15 +1,21 @@
-from datetime import datetime
-from sqlalchemy import create_engine, Column, String, Integer, DateTime
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 import uuid
+from datetime import datetime
 
-db_url = "localhost:5432"
-db_name = "electric-servers"
-db_user = "gabraham"
-db_password = "#pSQL_00!"
+from sqlalchemy import Column, DateTime, Integer, String, create_engine
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-engine = create_engine(f"postgresql://{db_user}:{db_password}@{db_url}/{db_name}")
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "5432")
+DB_USERNAME = os.getenv("DB_USERNAME", "username")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "password")
+DB_NAME = os.getenv("DB_NAME", "local-servers")
+
+
+engine = create_engine(
+    f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
